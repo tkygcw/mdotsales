@@ -90,12 +90,12 @@ class _ProductDetailState extends State<ProductDetail> {
 
     if (isdealerprice == true) {
       shareprice = dealerpricedata[0].price;
-      _editOwnPrice = TextEditingController(
-          text: dealerpricedata[0].price.toString());
+      // _editOwnPrice = TextEditingController(
+      //     text: dealerpricedata[0].price.toString());
     } else {
       shareprice = product[0].price;
-      _editOwnPrice =
-          TextEditingController(text: product[0].price.toString());
+      // _editOwnPrice =
+      //     TextEditingController(text: product[0].price.toString());
     }
   }
 
@@ -751,6 +751,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   void addOwnProduct(getprice) async{
     dynamic getdealerid = await FlutterSession().get("dealerid");
+    print(getprice);
 
     Map data = await Domain.callApi(Domain.getproduct, {
       'addtodealerprice': '1',
