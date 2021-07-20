@@ -29,4 +29,6 @@ String filelink="https://mdotservice.com/mdot/testing/";
 
 String categorylink="https://mdotservice.com/mdot/category/category_img/";
 
+String brandlink="https://mdotservice.com/mdot/brand/brand_img/";
+
 

@@ -287,8 +287,8 @@ class _productpageState extends State<productpage> {
                   leading: Container(
                     width: 80,
                     child: Image.network(
-                      '${products[i].picture}' == null
-                          ? ''
+                      '${products[i].picture}' == "null"
+                          ? 'https://coolbackgrounds.io/images/backgrounds/white/pure-white-background-85a2a7fd.jpg'
                           : imglink + '${products[i].picture}',
                     ),
                   ),

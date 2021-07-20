@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:readmore/readmore.dart';
+import 'package:expandable_text/expandable_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:mdotorder/pages/Personalprofile.dart';
@@ -166,14 +166,13 @@ class _IndexPageState extends State<IndexPage> {
                           children: [
                             Text(promotionImage[i].name,
                                 style: Theme.of(context).textTheme.title),
-                            ReadMoreText(
-                              promotionImage[i].remark,
-                              trimLines: 1,
-                              colorClickableText: Colors.pink,
-                              trimMode: TrimMode.Line,
-                              trimCollapsedText: 'Show more',
-                              trimExpandedText: 'Show less',
-                              moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                            // Text(promotionImage[i].remark),
+                            ExpandableText(
+                              "${promotionImage[i].remark}",
+                              maxLines: 1,
+                              linkColor: Colors.pink,
+                              expandText: 'Show more',
+                              collapseText: 'Show less',
                             ),
                           ],
                         ),

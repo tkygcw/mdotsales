@@ -712,6 +712,8 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   void setpricealert() async {
+    _editOwnPrice = TextEditingController();
+
     showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -733,7 +735,7 @@ class _ProductDetailState extends State<ProductDetail> {
             FlatButton(
               child: Text("Yes"),
               onPressed: () {
-                addOwnProduct(_editOwnPrice.text.toString());
+                addOwnProduct(_editOwnPrice.text);
                 Navigator.of(context).pop();
               },
             ),
@@ -749,15 +751,16 @@ class _ProductDetailState extends State<ProductDetail> {
     );
   }
 
-  void addOwnProduct(getprice) async{
+  void addOwnProduct(editprice) async{
     dynamic getdealerid = await FlutterSession().get("dealerid");
-    print(getprice);
+
+    print("edit price: "+editprice.toString());
 
     Map data = await Domain.callApi(Domain.getproduct, {
       'addtodealerprice': '1',
       'dealerid': getdealerid.toString(),
       'productid': widget.idHolder,
-      'setprice': getprice,
+      'setprice': editprice.toString(),
     });
 
     if(data["status"]=='1'){
