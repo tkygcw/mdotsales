@@ -637,7 +637,7 @@ class _ProductDetailState extends State<ProductDetail> {
     var setquantity = quantity;
     String setcolor = color;
 
-    setState(() {
+      setState(() {
       if (taskList.length == 0) {
         var saveid = DatabaseHelper.instance.insert(Order(
             itemcode: getid,

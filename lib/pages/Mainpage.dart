@@ -1,7 +1,9 @@
+import 'dart:io';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
@@ -20,9 +22,13 @@ class IndexPage extends StatefulWidget {
 }
 
 class _IndexPageState extends State<IndexPage> {
+  final key = GlobalKey<ScaffoldState>();
+
   List<Promotion> promotionImage = [];
   DateTime currentBackPressTime;
 
+  //firebase messaging
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   Future fetchPromotion() async {
     return await Domain.callApi(Domain.getpromotion, {
@@ -49,6 +55,63 @@ class _IndexPageState extends State<IndexPage> {
     //_selectedChoice = choice;
   }
 
+  Future<void> setupNotification() async {
+    // heads up notifications.
+    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {//messge will goes here
+
+      print('on message: $message');
+      print(message.notification?.title);
+      print(message.notification?.body);
+      //_setupNotificationSound(message);
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      //clickAction(message);
+    });
+
+    FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage message) async{
+      print('initialize message: $message');
+      if (message != null) {}
+    });
+
+    if (Platform.isIOS) {
+      _firebaseMessaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+    }
+
+    // save token
+    _firebaseMessaging.getToken().then((token) async {
+      var getdealerid = await FlutterSession().get("dealerid");
+
+      Map data = await Domain.callApi(Domain.getmaintain, {
+        'uploaddevice': '1',
+        'token': token.toString(),
+        'userid': getdealerid.toString(),
+        'type': '2',
+      });
+
+      if(data["status"]=="1"){
+        // _showSnackBar("Updated Successfully.");
+        print("FCM Token: "+token.toString());
+      }else{
+        _showSnackBar("Somethings wrong. Please try again");
+      }
+    });
+  }
+
   navigateToNextActivity(BuildContext context, int dataHolder) {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => ProductDetail(
@@ -58,9 +121,15 @@ class _IndexPageState extends State<IndexPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    setupNotification();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return new Scaffold(
+      key: key,
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[400],
         title: Row(
@@ -164,8 +233,7 @@ class _IndexPageState extends State<IndexPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(promotionImage[i].name,
-                                style: Theme.of(context).textTheme.title),
+                            Text(promotionImage[i].name),
                             // Text(promotionImage[i].remark),
                             ExpandableText(
                               "${promotionImage[i].remark}",
@@ -238,5 +306,12 @@ class _IndexPageState extends State<IndexPage> {
         }
       }
     }
+  }
+
+  _showSnackBar(message) {
+    key.currentState?.showSnackBar(new SnackBar(
+      duration: const Duration(milliseconds: 1000),
+      content: new Text(message),
+    ));
   }
 }

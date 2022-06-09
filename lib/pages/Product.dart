@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_session/flutter_session.dart';
-import 'package:barcode_scan/barcode_scan.dart';
 import 'package:mdotorder/domain/domain.dart';
 import 'package:mdotorder/object/product.dart';
 import 'package:mdotorder/object/Order.dart';
@@ -313,28 +312,6 @@ class _productpageState extends State<productpage> {
       ),
       itemCount: products.length,
     );
-  }
-
-  Future barcodeScanning() async {
-    try {
-      String barcode = await BarcodeScanner.scan();
-      setState(() => this.barcode = barcode);
-    } on PlatformException catch (e) {
-      if (e.code == BarcodeScanner.CameraAccessDenied) {
-        setState(() {
-          this.barcode = 'No camera permission!';
-        });
-      } else {
-        setState(() => this.barcode = 'Unknown error: $e');
-        print(barcode);
-      }
-    } on FormatException {
-      setState(() => this.barcode = 'Nothing captured.');
-      print(barcode);
-    } catch (e) {
-      setState(() => this.barcode = 'Unknown error: $e');
-      print(barcode);
-    }
   }
 
   void addItem(int productid, String name, double price, int getcolor) async {

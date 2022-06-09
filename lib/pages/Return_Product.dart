@@ -10,7 +10,6 @@ import 'package:flutter_session/flutter_session.dart';
 import 'package:mdotorder/object/dealer.dart';
 import 'package:mdotorder/object/driver.dart';
 import 'package:mdotorder/pages/home.dart';
-import 'package:barcode_scan/barcode_scan.dart';
 
 import 'package:mdotorder/domain/domain.dart';
 import 'package:signature/signature.dart';
@@ -124,49 +123,42 @@ class _ReturnProductPageState extends State<ReturnProductPage> {
               margin: const EdgeInsets.all(15.0),
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.blueGrey[800])),
-              child: FlatButton(
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            child: Text("Scan Driver QR Code :"),
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          child: Text("Scan Driver QR Code :"),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 15),
+                          child: Text(
+                            "${qrCodeDriver}",
+                            style: TextStyle(
+                                color: qrCodeDriver != ""
+                                    ? Colors.green
+                                    : Colors.red,
+                                fontSize: 16),
                           ),
-                          Container(
-                            padding: EdgeInsets.only(left: 15),
-                            child: Text(
-                              "${qrCodeDriver}",
-                              style: TextStyle(
-                                  color: qrCodeDriver != ""
-                                      ? Colors.green
-                                      : Colors.red,
-                                  fontSize: 16),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.photo_camera_outlined),
-                          Container(
-                            padding: EdgeInsets.only(left: 15),
-                            child: Text("Open Scanner"),
-                          ),
-                        ],
-                      ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.photo_camera_outlined),
+                        Container(
+                          padding: EdgeInsets.only(left: 15),
+                          child: Text("Open Scanner"),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                onPressed: () async {
-                  String cameraScanResult = await BarcodeScanner.scan();
-                  catchDealer(cameraScanResult);
-                },
+                  ),
+                ],
               ),
             ),
             // Column(

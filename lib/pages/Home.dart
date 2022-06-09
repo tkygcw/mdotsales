@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:mdotorder/pages/DownloadFile.dart';
 import 'package:mdotorder/pages/Mainpage.dart';
 import 'package:mdotorder/pages/Branddetail.dart';
 import 'package:mdotorder/pages/Statusinfo.dart';
+import 'package:mdotorder/pages/protectioninfo.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,7 +32,9 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   final List<Widget> _children = [
     IndexPage(),
     branddetail(),
-    statusinfo()
+    DownloadFile(),
+    // statusinfo(),
+    ProtectionInfo(),
   ];
 
   void onTappedBar(int index){
@@ -58,16 +61,24 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         items: [
           BottomNavigationBarItem(
             icon: new Icon(Icons.home),
-            title: new Text('Home'),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: new Icon(Icons.add_shopping_cart),
-            title: new Text('Product'),
+            label: 'Product',
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.cloud_download_outlined),
+            label: 'Download',
           ),
           BottomNavigationBarItem(
             icon: new Icon(Icons.auto_awesome_mosaic),
-            title: new Text('Status'),
+            label: 'Product Info',
           ),
+          // BottomNavigationBarItem(
+          //   icon: new Icon(Icons.auto_awesome_mosaic),
+          //   title: new Text('Status'),
+          // ),
         ],
       ),
     );

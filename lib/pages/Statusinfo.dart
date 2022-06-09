@@ -85,16 +85,16 @@ class _statusinfoState extends State<statusinfo> {
                 onChanged: _onSearchChanged,
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: IconButton(
-                icon: Icon(Icons.qr_code),
-                color: Colors.white,
-                onPressed: () {
-                  showalert();
-                },
-              ),
-            ),
+            // Expanded(
+            //   flex: 1,
+            //   child: IconButton(
+            //     icon: Icon(Icons.qr_code),
+            //     color: Colors.white,
+            //     onPressed: () {
+            //       showalert();
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),

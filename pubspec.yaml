@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.1+7
+version: 1.0.1+9
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -23,31 +23,42 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.12.0+2
-  intl: ^0.15.8
+  http: ^0.13.4
+  intl: ^0.17.0
   carousel_slider: ^2.3.1
   numberpicker: ^0.1.6
   share: ^0.6.5
-  barcode_scan: 1.0.0
   pagination_view: ^1.0.4
   sqflite:
   flutter_slidable: ^0.5.4
   get_storage:
   flutter_session: ^0.1.1
   double_back_to_close_app: ^2.0.1
-  shared_preferences: '>=0.5.12+4 <2.0.0'
-  pull_to_refresh: ^1.6.4
+  #shared_preferences: '>=0.5.12+4 <2.0.0'
+  pull_to_refresh: ^2.0.0
   badges: ^1.2.0
   group_radio_button: ^1.0.1
   qr_flutter: ^3.2.0
   signature: ^4.1.1
-  url_launcher: ^5.7.10
+  url_launcher: ^6.1.0
   expandable_text: ^2.2.0
   flutter_swiper: ^1.1.6
+  get: ^4.1.4
+  image_picker: ^0.8.5
+  flutter_image_compress: ^1.1.0
+  image_cropper: ^1.5.1
+  path_provider: ^1.6.28
+  firebase_core: ^1.15.0
+  firebase_messaging: ^11.2.14
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+
+dependency_overrides:
+  path_provider: ^2.0.8
+  shared_preferences: any
 
 dev_dependencies:
   flutter_test:
