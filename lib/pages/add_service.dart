@@ -12,7 +12,7 @@ import 'package:http/http.dart' as http;
 
 import '../domain/domain.dart';
 
-
+//alright done
 class AddService extends StatefulWidget {
   final String idHolder;
 
@@ -130,7 +130,7 @@ class _AddServiceState extends State<AddService> {
                     ),
                   ),
                   const SizedBox(height: 20,),
-                  Stack(fit: StackFit.passthrough, overflow: Overflow.visible, children: [
+                  Stack(fit: StackFit.passthrough, children: [
                     Container(
                       alignment: Alignment.bottomLeft,
                       child: compressedFileSource != null

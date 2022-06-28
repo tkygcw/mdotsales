@@ -4,6 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_session/flutter_session.dart';
+import 'package:mdotorder/pages/viewimages.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:share/share.dart';
 import 'package:mdotorder/database/Cartlist.dart';
 import 'package:mdotorder/domain/domain.dart';
@@ -51,6 +54,7 @@ class _ProductDetailState extends State<ProductDetail> {
   Future fetchProduct() async {
     checkdealerprice();
     dynamic getdealerlevel = await FlutterSession().get("dealerlevel");
+
     return await Domain.callApi(Domain.getproduct, {
       'read_single_product': '1',
       'product_id': widget.idHolder,
@@ -247,6 +251,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 /*
                 * for product slider purpose
                 * */
+                productImage=[];
                 if (data['product_banner'] != false) {
                   List sliders = data['product_banner'];
                   productImage.addAll(sliders
@@ -284,101 +289,111 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   Widget mainContent() {
-    return SingleChildScrollView(
-      child: Column(
-        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          productSlider(),
-          productDetail(),
-          Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Container(
-                  margin: const EdgeInsets.all(5.0),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height/15*5,
+          child: productSlider()
+        ),
+        Container(
+          height: MediaQuery.of(context).size.height/14*5,
+          child: SingleChildScrollView(
+            child: productDetail()
+          )
+        ),
+        Container(
+          height: MediaQuery.of(context).size.height/14,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height/18,
+                width: MediaQuery.of(context).size.width/2.2,
+                margin: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
                   color: Colors.blueGrey[800],
-                  child: Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        _itemCount != 1
-                            ? new IconButton(
-                                icon: new Icon(Icons.remove_circle),
-                                color: Colors.white,
-                                onPressed: () => setState(() => _itemCount--),
-                              )
-                            : new IconButton(
-                                icon: new Icon(Icons.remove_circle),
-                                color: Colors.grey[400],
-                              ),
-                        new Text(_itemCount.toString(),
-                            style: TextStyle(
+                ),
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _itemCount != 1
+                          ? new IconButton(
+                              icon: new Icon(Icons.remove_circle),
                               color: Colors.white,
-                              fontSize: 20,
-                            )),
-                        new IconButton(
-                            icon: new Icon(Icons.add_circle),
+                              onPressed: () => setState(() => _itemCount--),
+                            )
+                          : new IconButton(
+                              icon: new Icon(Icons.remove_circle),
+                              color: Colors.grey[400],
+                            ),
+                      new Text(_itemCount.toString(),
+                          style: TextStyle(
                             color: Colors.white,
-                            onPressed: () => setState(() => _itemCount++))
-                      ],
-                    ),
+                            fontSize: 20,
+                          )),
+                      new IconButton(
+                          icon: new Icon(Icons.add_circle),
+                          color: Colors.white,
+                          onPressed: () => setState(() => _itemCount++))
+                    ],
                   ),
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  margin: const EdgeInsets.all(5.0),
+              Container(
+                width: MediaQuery.of(context).size.width/2.2,
+                margin: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
                   color: Colors.blueGrey[800],
-                  child: Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    child: colorname == null
-                        ? FlatButton(
-                            child: Text(
-                              'Choose Color',
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                          )
-                        : product[0].price != 0
-                            ? FlatButton(
-                                onPressed: () {
-                                  if (colorprice != null) {
-                                    totalprice = product[0].price + colorprice;
-                                  } else {
-                                    totalprice = product[0].price;
-                                  }
-
-                                  _addToDb(product[0].id, product[0].name,
-                                      totalprice, _itemCount, colorname);
-                                  widget.update();
-                                },
-                                child: const Text(
-                                  'Add to Cart',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              )
-                            : FlatButton(
-                                child: const Text(
-                                  'Add to Cart',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.blueGrey,
-                                  ),
-                                ),
-                              ),
-                  ),
                 ),
+                child: colorname == null
+                  ? FlatButton(
+                      child: Text(
+                        'Choose Color',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    )
+                  : product[0].price != 0
+                    ? FlatButton(
+                      onPressed: () {
+                        if (colorprice != null) {
+                          totalprice = product[0].price + colorprice;
+                        } else {
+                          totalprice = product[0].price;
+                        }
+
+                        _addToDb(product[0].id, product[0].name,
+                            totalprice, _itemCount, colorname);
+                        widget.update();
+                      },
+                      child: const Text(
+                        'Add to Cart',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                    : FlatButton(
+                      child: const Text(
+                        'Add to Cart',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blueGrey,
+                        ),
+                      ),
+                    ),
               ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -539,46 +554,44 @@ class _ProductDetailState extends State<ProductDetail> {
 
   Widget productSlider() {
     return productImage.length > 0
-        ? Column(children: <Widget>[
-            ListView(
-              shrinkWrap: true,
-              children: [
-                CarouselSlider(
-                  items: countLength()
-                      .map((i) => Column(
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return ViewImage(
-                                          id: productImage[i].productLocate,
-                                        );
-                                      },
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  child: new Image.network(
-                                    (imglink + productImage[i].productLocate),
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 220,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ))
-                      .toList(),
-                  options: CarouselOptions(
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: true,
-                  ),
+        ? Container(
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return ViewImages(
+                    id: productImage[0].id.toString(),
+                  );
+                },
+              ),
+            );
+          },
+          child: PhotoViewGallery.builder(
+            scrollPhysics: const BouncingScrollPhysics(),
+            builder: (BuildContext context, int index) {
+              return PhotoViewGalleryPageOptions(
+                imageProvider: NetworkImage(imglink + productImage[index].productLocate),
+                initialScale: PhotoViewComputedScale.contained * 0.8,
+                heroAttributes: PhotoViewHeroAttributes(tag: productImage[index].id),
+              );
+            },
+            itemCount: productImage.length,
+            loadingBuilder: (context, event) => Center(
+              child: Container(
+                width: 20.0,
+                height: 20.0,
+                child: CircularProgressIndicator(
+                  value: event == null
+                      ? 0
+                      : event.cumulativeBytesLoaded / event.expectedTotalBytes,
                 ),
-              ],
-            )
-          ])
+              ),
+            ),
+          ),
+        )
+    )
         : Container(
             height: 220,
             child: Image.asset('assets/noimg.jpg'),
@@ -775,6 +788,14 @@ class _ProductDetailState extends State<ProductDetail> {
     key.currentState.showSnackBar(new SnackBar(
       duration: const Duration(milliseconds: 1000),
       content: new Text(message),
+    ));
+  }
+
+  navigateToFullImage(BuildContext context, int dataHolder) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => ViewImages(
+        id: dataHolder.toString(),
+      ),
     ));
   }
 }

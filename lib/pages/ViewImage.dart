@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mdotorder/domain/domain.dart';
+import 'package:photo_view/photo_view.dart';
 
 class ViewImage extends StatefulWidget {
   final String id;
@@ -29,8 +30,10 @@ class _ViewImageState extends State<ViewImage> {
           Navigator.pop(context,true);
         },
         child: Container(
-          child: Image.network(
-              imglink + widget.id,
+          child: PhotoView(
+            imageProvider: NetworkImage(
+                imglink + widget.id,
+            ),
           ),
         ),
       ),
