@@ -97,7 +97,7 @@ class _ProductDetailState extends State<ProductDetail> {
       // _editOwnPrice = TextEditingController(
       //     text: dealerpricedata[0].price.toString());
     } else {
-      shareprice = product[0].price;
+      shareprice = 0;
       // _editOwnPrice =
       //     TextEditingController(text: product[0].price.toString());
     }
@@ -261,6 +261,10 @@ class _ProductDetailState extends State<ProductDetail> {
 
                 colorname = "nocolor";
 
+                if (isdealerprice == false) {
+                  shareprice=product[0].price;
+                }
+
                 /*
                 * for product color purpose
                 * */
@@ -289,111 +293,116 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   Widget mainContent() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height/15*5,
-          child: productSlider()
-        ),
-        Container(
-          height: MediaQuery.of(context).size.height/14*5,
-          child: SingleChildScrollView(
-            child: productDetail()
-          )
-        ),
-        Container(
-          height: MediaQuery.of(context).size.height/14,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height/18,
-                width: MediaQuery.of(context).size.width/2.2,
-                margin: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.blueGrey[800],
-                ),
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _itemCount != 1
-                          ? new IconButton(
-                              icon: new Icon(Icons.remove_circle),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height/15*7,
+            child: productSlider()
+          ),
+          Container(
+              width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height/14*5,
+            child: SingleChildScrollView(
+              child: productDetail()
+            )
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height/15,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height/18,
+                  width: MediaQuery.of(context).size.width/2.2,
+                  margin: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.blueGrey[800],
+                  ),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _itemCount != 1
+                            ? new IconButton(
+                                icon: new Icon(Icons.remove_circle),
+                                color: Colors.white,
+                                onPressed: () => setState(() => _itemCount--),
+                              )
+                            : new IconButton(
+                                icon: new Icon(Icons.remove_circle),
+                                color: Colors.grey[400],
+                              ),
+                        new Text(_itemCount.toString(),
+                            style: TextStyle(
                               color: Colors.white,
-                              onPressed: () => setState(() => _itemCount--),
-                            )
-                          : new IconButton(
-                              icon: new Icon(Icons.remove_circle),
-                              color: Colors.grey[400],
-                            ),
-                      new Text(_itemCount.toString(),
-                          style: TextStyle(
+                              fontSize: 20,
+                            )),
+                        new IconButton(
+                            icon: new Icon(Icons.add_circle),
                             color: Colors.white,
-                            fontSize: 20,
-                          )),
-                      new IconButton(
-                          icon: new Icon(Icons.add_circle),
-                          color: Colors.white,
-                          onPressed: () => setState(() => _itemCount++))
-                    ],
+                            onPressed: () => setState(() => _itemCount++))
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width/2.2,
-                margin: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.blueGrey[800],
-                ),
-                child: colorname == null
-                  ? FlatButton(
-                      child: Text(
-                        'Choose Color',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
-                    )
-                  : product[0].price != 0
+                Container(
+                  width: MediaQuery.of(context).size.width/2.2,
+                  margin: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.blueGrey[800],
+                  ),
+                  child: colorname == null
                     ? FlatButton(
-                      onPressed: () {
-                        if (colorprice != null) {
-                          totalprice = product[0].price + colorprice;
-                        } else {
-                          totalprice = product[0].price;
-                        }
+                        child: Text(
+                          'Choose Color',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      )
+                    : product[0].price != 0
+                      ? FlatButton(
+                        onPressed: () {
+                          if (colorprice != null) {
+                            totalprice = product[0].price + colorprice;
+                          } else {
+                            totalprice = product[0].price;
+                          }
 
-                        _addToDb(product[0].id, product[0].name,
-                            totalprice, _itemCount, colorname);
-                        widget.update();
-                      },
-                      child: const Text(
-                        'Add to Cart',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
+                          _addToDb(product[0].id, product[0].name,
+                              totalprice, _itemCount, colorname);
+                          widget.update();
+                        },
+                        child: const Text(
+                          'Add to Cart',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                      : FlatButton(
+                        child: const Text(
+                          'Add to Cart',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.blueGrey,
+                          ),
                         ),
                       ),
-                    )
-                    : FlatButton(
-                      child: const Text(
-                        'Add to Cart',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.blueGrey,
-                        ),
-                      ),
-                    ),
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -428,7 +437,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             ),
                           ),
                           Container(
-                            width: 400,
+                            width: MediaQuery.of(context).size.width/20*18,
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                               child: Text(
@@ -569,9 +578,11 @@ class _ProductDetailState extends State<ProductDetail> {
             );
           },
           child: PhotoViewGallery.builder(
+            backgroundDecoration: BoxDecoration(color: Colors.white),
             scrollPhysics: const BouncingScrollPhysics(),
             builder: (BuildContext context, int index) {
               return PhotoViewGalleryPageOptions(
+
                 imageProvider: NetworkImage(imglink + productImage[index].productLocate),
                 initialScale: PhotoViewComputedScale.contained * 0.8,
                 heroAttributes: PhotoViewHeroAttributes(tag: productImage[index].id),
@@ -736,9 +747,7 @@ class _ProductDetailState extends State<ProductDetail> {
           content: TextField(
             controller: _editOwnPrice,
             keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.digitsOnly
-            ], // Only numbers can be entered
+            inputFormatters: <TextInputFormatter>[],
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,

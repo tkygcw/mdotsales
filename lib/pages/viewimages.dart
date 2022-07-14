@@ -53,6 +53,7 @@ class _ViewImagesState extends State<ViewImages> {
     return productImage.length > 0
         ? Container(
         child: PhotoViewGallery.builder(
+          backgroundDecoration: BoxDecoration(color: Colors.white),
           scrollPhysics: const BouncingScrollPhysics(),
           builder: (BuildContext context, int index) {
             return PhotoViewGalleryPageOptions(

@@ -43,8 +43,8 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.mdot.mdotorder"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 10
+        targetSdkVersion 31
+        versionCode 11
         versionName flutterVersionName
         multiDexEnabled true
     }
