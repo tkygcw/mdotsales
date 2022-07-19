@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mdotorder/pages/DownloadFile.dart';
@@ -6,7 +7,7 @@ import 'package:mdotorder/pages/Branddetail.dart';
 import 'package:mdotorder/pages/Statusinfo.dart';
 import 'package:mdotorder/pages/protectioninfo.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
@@ -19,7 +20,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 
 class MyBottomNavigationBar extends StatefulWidget {
   @override
@@ -37,27 +37,29 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     ProtectionInfo(),
   ];
 
-  void onTappedBar(int index){
+  void onTappedBar(int index) {
     setState(() {
       _currentIndex = index;
     });
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[400],
-
-      body:_children[_currentIndex],
-
+      body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
         selectedItemColor: Colors.grey[800],
         unselectedItemColor: Colors.grey[500],
-
         onTap: onTappedBar,
         currentIndex: _currentIndex,
-
         items: [
           BottomNavigationBarItem(
             icon: new Icon(Icons.home),

@@ -13,11 +13,16 @@ import 'package:mdotorder/pages/Branddetail.dart';
 import 'package:mdotorder/pages/Productfilter.dart';
 import 'package:mdotorder/pages/Cart.dart';
 import 'package:mdotorder/pages/Editprofile.dart';
+import 'firebase_options.dart';
 
 void main() async {
-  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  FirebaseApp app = await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  print('Initialized default app $app');
+
+  HttpOverrides.global = MyHttpOverrides();
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
