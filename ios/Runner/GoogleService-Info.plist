@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>673695224591-f3lpk05fd8ed9vb97qkd8pu9l3rpbb53.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.673695224591-f3lpk05fd8ed9vb97qkd8pu9l3rpbb53</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAKhzQPTx0_vdAX43EtJBTzfylWTIdRhDI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>673695224591</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mdot.my</string>
+	<key>PROJECT_ID</key>
+	<string>mdot-52f4d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mdot-52f4d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:673695224591:ios:79fbd575f1d0b1000de47a</string>
+	<key>DATABASE_URL</key>
+	<string>https://mdot-52f4d-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+</dict>
+</plist>
