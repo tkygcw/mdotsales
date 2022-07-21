@@ -1,37 +1,74 @@
 {
   "project_info": {
-    "project_number": "330159105089",
-    "project_id": "mdotsales-26a6c",
-    "storage_bucket": "mdotsales-26a6c.appspot.com"
+    "project_number": "673695224591",
+    "firebase_url": "https://mdot-52f4d-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "mdot-52f4d",
+    "storage_bucket": "mdot-52f4d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:330159105089:android:b82a67795777c3b41592c0",
+        "mobilesdk_app_id": "1:673695224591:android:d0803def6366f4fa0de47a",
         "android_client_info": {
           "package_name": "com.mdot.mdotorder"
         }
       },
       "oauth_client": [
         {
-          "client_id": "330159105089-2gorb6dtbmagit567j54si28r9msoaba.apps.googleusercontent.com",
+          "client_id": "673695224591-6rkc6asj522pth7g55csgk1n0h1m6lsk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCPwu62-jYRluflEmZZSfcWUBcW2-QBdNk"
+          "current_key": "AIzaSyCs3Gpzz0mibugNE1vr73nldyXt1ZCtFyY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "330159105089-2gorb6dtbmagit567j54si28r9msoaba.apps.googleusercontent.com",
+              "client_id": "673695224591-6rkc6asj522pth7g55csgk1n0h1m6lsk.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "330159105089-fl75hf6lhla7941ghgarh9dcg5mo2l8n.apps.googleusercontent.com",
+              "client_id": "673695224591-f3lpk05fd8ed9vb97qkd8pu9l3rpbb53.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mdot.my"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673695224591:android:d746aaadaf83e9880de47a",
+        "android_client_info": {
+          "package_name": "com.mdot.technicianpart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673695224591-6rkc6asj522pth7g55csgk1n0h1m6lsk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs3Gpzz0mibugNE1vr73nldyXt1ZCtFyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673695224591-6rkc6asj522pth7g55csgk1n0h1m6lsk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "673695224591-f3lpk05fd8ed9vb97qkd8pu9l3rpbb53.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.mdot.my"
