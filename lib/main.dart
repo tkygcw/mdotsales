@@ -17,10 +17,14 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FirebaseApp app = await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  print('Initialized default app $app');
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+      name: 'MDOT Sales',
+      options: DefaultFirebaseOptions.currentPlatform,
+    ).whenComplete(() {
+      print("completedAppInitialize");
+    });
+  }
 
   HttpOverrides.global = MyHttpOverrides();
 
